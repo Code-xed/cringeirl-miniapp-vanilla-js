@@ -1,162 +1,320 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Telegram Mini Apps Vanilla JS Sample App</title>
-    <style>
-        body {
-            --bg-color: var(--tg-theme-bg-color);
-            font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--tg-theme-text-color);
-            margin: 48px 24px;
-            padding: 0;
-            color-scheme: var(--tg-color-scheme);
-        }
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /><title>Dracarys | Mini App</title>
 
-        a {
-            color: var(--tg-theme-link-color);
-        }
-        #viewport {
-            position: fixed;
-            left: 0;
-            right: 0;
-            top: 0;
-            height: var(--tg-viewport-stable-height, 100vh);
-            pointer-events: none;
-            transition: all .2s ease;
-        }
-        #viewport:after {
-            content: '';
-            display: block;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            border-width: 4px;
-            border-style: solid;
-            border-image: linear-gradient(45deg, rgba(64, 224, 208, .5), rgba(173, 255, 47, .5)) 1;
-        }
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-        #viewport-params-size,
-        #viewport-params-expand {
-            content: attr(text);
-            position: absolute;
-            display: inline-block;
-            background: var(--tg-theme-link-color, rgb(64, 224, 208));
-            right: 4px;
-            left: auto;
-            font-size: 8px;
-            padding: 4px;
-            vertical-align: top;
-        }
-        #viewport-params-size {
-            top: 4px;
-        }
-        #viewport-params-expand {
-            top: 30px;
-        }
-    </style>
-</head>
-
-<body>
-    <main>
-        <div align="center">
-            <a href="https://ton.org/"><img width="48" src="./assets/tapps.png" alt="logo of telegram web apps"></a>
-        </div>
-        <h1>Modals</h1>
-        <button onclick="Telegram.WebApp.showAlert('Hello World!');">Launch Alert</button>
-        <button onclick="showPopup();">Launch Popup</button>
-
-        <h1>Links</h1>
-        <ul>
-            <li>
-                <a href="javascript:Telegram.WebApp.openTelegramLink('https://t.me/trendingapps');">Open link within Telegram</a>
-            </li>
-            <li>
-                <a href="javascript:Telegram.WebApp.openLink('https://ton.org/');">Open link in external browser</a>
-            </li>
-            <li>
-                <a href="javascript:Telegram.WebApp.openLink('https://telegra.ph/api',{try_instant_view:true});">Open link inside Telegram webview</a>
-            </li>
-        </ul>
-
-        <h1>Buttons</h1>
-        <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
-        <button onclick="toggleMainButton();">Toggle Main Button</button>
-    </main>
-    <div id="viewport"></div>
-    <div id="viewport-params-size"></div>
-    <div id="viewport-params-expand"></div>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        // Init TWA
-        Telegram.WebApp.ready();
-
-        // Event occurs whenever theme settings are changed in the user's Telegram app (including switching to night mode).
-        Telegram.WebApp.onEvent('themeChanged', function() {
-            document.documentElement.className = Telegram.WebApp.colorScheme;
-        });
-
-        // Show main button
-        Telegram.WebApp.MainButton.setParams({
-            text: 'Main Button'
-        });
-        Telegram.WebApp.MainButton.onClick(function () {
-            Telegram.WebApp.showAlert('Main Button was clicked')
-        });	
-        Telegram.WebApp.MainButton.show();
-
-        // Function to call showPopup API
-        function showPopup() {
-            Telegram.WebApp.showPopup({
-                title: 'Title',
-                message: 'Some message',
-                buttons: [
-                    {id: 'link', type: 'default', text: 'Open ton.org'},
-                    {type: 'cancel'},
-                ]
-            }, function(btn) {
-                if (btn === 'link') {
-                    Telegram.WebApp.openLink('https://ton.org/');
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    serif: ['Georgia', 'Times New Roman', 'serif'],
+                },
+                colors: {
+                    iron: '#171717',
+                    parchment: '#d8c7a0',
+                    gold: '#c9a227',
+                    dragon: '#8b1e1e',
                 }
-            });
-        };
-
-        // Function to toggle main TWA button
-        function toggleMainButton() {
-            if (Telegram.WebApp.MainButton.isVisible) {
-                Telegram.WebApp.MainButton.hide();
-            } else {
-                Telegram.WebApp.MainButton.show();
             }
-        };
-
-        function setViewportData() {
-            var sizeEl = document.getElementById('viewport-params-size');
-            sizeEl.innerText = 'width: ' + window.innerWidth + ' x ' + 
-                'height: ' + Telegram.WebApp.viewportStableHeight;
-
-            var expandEl = document.querySelector('#viewport-params-expand');
-            expandEl.innerText = 'Is Expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false');
         }
+    }
+</script>
 
-        Telegram.WebApp.setHeaderColor('secondary_bg_color');
+<style>
+    body {
+        background:
+            radial-gradient(circle at top, rgba(139, 30, 30, 0.18), transparent 35%),
+            linear-gradient(180deg, #090909 0%, #111111 50%, #070707 100%);
+        color: var(--tg-theme-text-color, #e5e5e5);
+        min-height: 100vh;
+        font-family: Georgia, "Times New Roman", serif;
+        color-scheme: dark;
+    }
 
-        setViewportData();
-        Telegram.WebApp.onEvent('viewportChanged', setViewportData);
+    .iron-border {
+        border: 1px solid rgba(201, 162, 39, 0.35);
+    }
 
-        Telegram.WebApp.onEvent('themeChanged', function() {
-            document.body.setAttribute('style', '--bg-color:' + Telegram.WebApp.backgroundColor);
+    .gold-text {
+        color: #c9a227;
+    }
+
+    .dragon-glow {
+        box-shadow:
+            0 0 30px rgba(139, 30, 30, 0.15),
+            inset 0 0 30px rgba(201, 162, 39, 0.03);
+    }
+
+    .rune-line {
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(201, 162, 39, 0.6),
+            transparent
+        );
+    }
+
+    button {
+        -webkit-tap-highlight-color: transparent;
+    }
+</style>
+
+</head><body class="min-h-screen"><main class="max-w-md mx-auto px-5 py-8">
+
+    <!-- Header -->
+    <section class="text-center mb-8">
+
+        <div class="flex justify-center mb-4">
+            <div class="w-20 h-20 rounded-full iron-border bg-black/60 flex items-center justify-center dragon-glow">
+                <span class="text-5xl">🐉</span>
+            </div>
+        </div>
+
+        <p class="text-xs tracking-[0.35em] uppercase text-gray-500 mb-2">
+            House Targaryen
+        </p>
+
+        <h1 class="text-4xl font-bold tracking-wide gold-text">
+            DRACARYS
+        </h1>
+
+        <p class="text-sm text-gray-400 mt-2 italic">
+            Fire and Blood
+        </p>
+
+        <div class="rune-line mt-6"></div>
+    </section>
+
+
+    <!-- Welcome Card -->
+    <section class="bg-black/40 rounded-2xl p-5 iron-border dragon-glow mb-6">
+
+        <p class="text-xs uppercase tracking-[0.25em] text-gray-500 mb-3">
+            The Realm Awaits
+        </p>
+
+        <h2 class="text-2xl font-bold text-gray-100 mb-2">
+            Welcome to Westeros
+        </h2>
+
+        <p class="text-sm leading-6 text-gray-400">
+            The Iron Throne awaits its next ruler.
+            Choose your path wisely, for winter is coming.
+        </p>
+
+    </section>
+
+
+    <!-- Modals -->
+    <section class="mb-7">
+
+        <h2 class="text-lg font-bold gold-text mb-3">
+            ⚔ The King's Court
+        </h2>
+
+        <div class="grid grid-cols-2 gap-3">
+
+            <button
+                onclick="Telegram.WebApp.showAlert('The King demands your attention.')"
+                class="bg-gray-900/80 iron-border rounded-xl px-4 py-4 text-sm font-semibold active:scale-95 transition">
+                Summon the King
+            </button>
+
+            <button
+                onclick="showPopup()"
+                class="bg-red-950/50 border border-red-900/50 rounded-xl px-4 py-4 text-sm font-semibold active:scale-95 transition">
+                Consult the Council
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- Links -->
+    <section class="mb-7">
+
+        <h2 class="text-lg font-bold gold-text mb-3">
+            🦅 Ravens
+        </h2>
+
+        <div class="space-y-2">
+
+            <a
+                href="javascript:Telegram.WebApp.openTelegramLink('https://t.me/trendingapps');"
+                class="block bg-gray-900/60 iron-border rounded-xl px-4 py-3 text-sm text-gray-300 active:scale-[0.98] transition">
+                Open a raven within Telegram
+                <span class="float-right gold-text">→</span>
+            </a>
+
+            <a
+                href="javascript:Telegram.WebApp.openLink('https://ton.org/');"
+                class="block bg-gray-900/60 iron-border rounded-xl px-4 py-3 text-sm text-gray-300 active:scale-[0.98] transition">
+                Ride beyond the Wall
+                <span class="float-right gold-text">→</span>
+            </a>
+
+            <a
+                href="javascript:Telegram.WebApp.openLink('https://telegra.ph/api',{try_instant_view:true});"
+                class="block bg-gray-900/60 iron-border rounded-xl px-4 py-3 text-sm text-gray-300 active:scale-[0.98] transition">
+                Open the Maester's scroll
+                <span class="float-right gold-text">→</span>
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Telegram Controls -->
+    <section class="mb-7">
+
+        <h2 class="text-lg font-bold gold-text mb-3">
+            🔥 Dragon Commands
+        </h2>
+
+        <div class="grid grid-cols-2 gap-3">
+
+            <button
+                onclick="Telegram.WebApp.expand()"
+                class="bg-gray-900/80 iron-border rounded-xl px-4 py-4 text-sm font-semibold active:scale-95 transition">
+                Expand Realm
+            </button>
+
+            <button
+                onclick="toggleMainButton()"
+                class="bg-gray-900/80 iron-border rounded-xl px-4 py-4 text-sm font-semibold active:scale-95 transition">
+                Toggle Throne
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- House Motto -->
+    <section class="text-center mt-10 mb-6">
+
+        <div class="rune-line mb-5"></div>
+
+        <p class="text-sm italic text-gray-500">
+            "When you play the game of thrones, you win or you die."
+        </p>
+
+        <p class="text-xs tracking-[0.25em] uppercase text-gray-700 mt-3">
+            Winter is Coming
+        </p>
+
+    </section>
+
+</main>
+
+
+<!-- Telegram Mini Apps SDK -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<script>
+
+    // Initialize Telegram Mini App
+    Telegram.WebApp.ready();
+
+
+    // Apply Telegram theme
+    Telegram.WebApp.onEvent('themeChanged', function () {
+        document.documentElement.className =
+            Telegram.WebApp.colorScheme;
+    });
+
+
+    // Main Telegram button
+    Telegram.WebApp.MainButton.setParams({
+        text: 'ENTER THE THRONE ROOM'
+    });
+
+    Telegram.WebApp.MainButton.onClick(function () {
+        Telegram.WebApp.showAlert(
+            'The Iron Throne acknowledges your presence.'
+        );
+    });
+
+    Telegram.WebApp.MainButton.show();
+
+
+    // Council popup
+    function showPopup() {
+
+        Telegram.WebApp.showPopup({
+            title: 'The Small Council',
+            message: 'The realm awaits your command.',
+            buttons: [
+                {
+                    id: 'dragon',
+                    type: 'default',
+                    text: 'Dracarys'
+                },
+                {
+                    type: 'cancel'
+                }
+            ]
+        }, function (btn) {
+
+            if (btn === 'dragon') {
+                Telegram.WebApp.showAlert(
+                    '🔥 DRACARYS 🔥'
+                );
+            }
+
         });
 
-    </script>
+    }
 
-    <!-- Eruda is console for mobile browsers -->
-    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-    <script>eruda.init();</script>
+
+    // Toggle Telegram Main Button
+    function toggleMainButton() {
+
+        if (Telegram.WebApp.MainButton.isVisible) {
+            Telegram.WebApp.MainButton.hide();
+        } else {
+            Telegram.WebApp.MainButton.show();
+        }
+
+    }
+
+
+    // Telegram viewport
+    function setViewportData() {
+
+        document.body.style.setProperty(
+            '--tg-viewport-height',
+            Telegram.WebApp.viewportStableHeight + 'px'
+        );
+
+    }
+
+    Telegram.WebApp.setHeaderColor('secondary_bg_color');
+
+    setViewportData();
+
+    Telegram.WebApp.onEvent(
+        'viewportChanged',
+        setViewportData
+    );
+
+</script>
+
+
+<!-- Eruda mobile console -->
+<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+
+<script>
+    eruda.init();
+</script>
+
 </body>
 </html>
