@@ -1,319 +1,1318 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" /><title>Dracarys | Mini App</title>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
 
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
+    <title>Seven Realms</title>
 
-<script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                fontFamily: {
-                    serif: ['Georgia', 'Times New Roman', 'serif'],
-                },
-                colors: {
-                    iron: '#171717',
-                    parchment: '#d8c7a0',
-                    gold: '#c9a227',
-                    dragon: '#8b1e1e',
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        realm: {
+                            bg: "#09090b",
+                            panel: "#111113",
+                            panel2: "#18181b",
+                            gold: "#c9a227",
+                            red: "#8f1d1d",
+                            blood: "#5c1010",
+                            text: "#e7e5e4",
+                            muted: "#8f8b85"
+                        }
+                    }
                 }
             }
         }
-    }
-</script>
-
-<style>
-    body {
-        background:
-            radial-gradient(circle at top, rgba(139, 30, 30, 0.18), transparent 35%),
-            linear-gradient(180deg, #090909 0%, #111111 50%, #070707 100%);
-        color: var(--tg-theme-text-color, #e5e5e5);
-        min-height: 100vh;
-        font-family: Georgia, "Times New Roman", serif;
-        color-scheme: dark;
-    }
-
-    .iron-border {
-        border: 1px solid rgba(201, 162, 39, 0.35);
-    }
-
-    .gold-text {
-        color: #c9a227;
-    }
-
-    .dragon-glow {
-        box-shadow:
-            0 0 30px rgba(139, 30, 30, 0.15),
-            inset 0 0 30px rgba(201, 162, 39, 0.03);
-    }
-
-    .rune-line {
-        height: 1px;
-        background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(201, 162, 39, 0.6),
-            transparent
-        );
-    }
-
-    button {
-        -webkit-tap-highlight-color: transparent;
-    }
-</style>
-
-</head><body class="min-h-screen"><main class="max-w-md mx-auto px-5 py-8">
-
-    <!-- Header -->
-    <section class="text-center mb-8">
-
-        <div class="flex justify-center mb-4">
-            <div class="w-20 h-20 rounded-full iron-border bg-black/60 flex items-center justify-center dragon-glow">
-                <span class="text-5xl">🐉</span>
-            </div>
-        </div>
-
-        <p class="text-xs tracking-[0.35em] uppercase text-gray-500 mb-2">
-            House Targaryen
-        </p>
-
-        <h1 class="text-4xl font-bold tracking-wide gold-text">
-            DRACARYS
-        </h1>
-
-        <p class="text-sm text-gray-400 mt-2 italic">
-            Fire and Blood
-        </p>
-
-        <div class="rune-line mt-6"></div>
-    </section>
-
-
-    <!-- Welcome Card -->
-    <section class="bg-black/40 rounded-2xl p-5 iron-border dragon-glow mb-6">
-
-        <p class="text-xs uppercase tracking-[0.25em] text-gray-500 mb-3">
-            The Realm Awaits
-        </p>
-
-        <h2 class="text-2xl font-bold text-gray-100 mb-2">
-            Welcome to Westeros
-        </h2>
-
-        <p class="text-sm leading-6 text-gray-400">
-            The Iron Throne awaits its next ruler.
-            Choose your path wisely, for winter is coming.
-        </p>
-
-    </section>
-
-
-    <!-- Modals -->
-    <section class="mb-7">
-
-        <h2 class="text-lg font-bold gold-text mb-3">
-            ⚔ The King's Court
-        </h2>
-
-        <div class="grid grid-cols-2 gap-3">
-
-            <button
-                onclick="Telegram.WebApp.showAlert('The King demands your attention.')"
-                class="bg-gray-900/80 iron-border rounded-xl px-4 py-4 text-sm font-semibold active:scale-95 transition">
-                Summon the King
-            </button>
-
-            <button
-                onclick="showPopup()"
-                class="bg-red-950/50 border border-red-900/50 rounded-xl px-4 py-4 text-sm font-semibold active:scale-95 transition">
-                Consult the Council
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- Links -->
-    <section class="mb-7">
-
-        <h2 class="text-lg font-bold gold-text mb-3">
-            🦅 Ravens
-        </h2>
-
-        <div class="space-y-2">
-
-            <a
-                href="javascript:Telegram.WebApp.openTelegramLink('https://t.me/trendingapps');"
-                class="block bg-gray-900/60 iron-border rounded-xl px-4 py-3 text-sm text-gray-300 active:scale-[0.98] transition">
-                Open a raven within Telegram
-                <span class="float-right gold-text">→</span>
-            </a>
-
-            <a
-                href="javascript:Telegram.WebApp.openLink('https://ton.org/');"
-                class="block bg-gray-900/60 iron-border rounded-xl px-4 py-3 text-sm text-gray-300 active:scale-[0.98] transition">
-                Ride beyond the Wall
-                <span class="float-right gold-text">→</span>
-            </a>
-
-            <a
-                href="javascript:Telegram.WebApp.openLink('https://telegra.ph/api',{try_instant_view:true});"
-                class="block bg-gray-900/60 iron-border rounded-xl px-4 py-3 text-sm text-gray-300 active:scale-[0.98] transition">
-                Open the Maester's scroll
-                <span class="float-right gold-text">→</span>
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- Telegram Controls -->
-    <section class="mb-7">
-
-        <h2 class="text-lg font-bold gold-text mb-3">
-            🔥 Dragon Commands
-        </h2>
-
-        <div class="grid grid-cols-2 gap-3">
-
-            <button
-                onclick="Telegram.WebApp.expand()"
-                class="bg-gray-900/80 iron-border rounded-xl px-4 py-4 text-sm font-semibold active:scale-95 transition">
-                Expand Realm
-            </button>
-
-            <button
-                onclick="toggleMainButton()"
-                class="bg-gray-900/80 iron-border rounded-xl px-4 py-4 text-sm font-semibold active:scale-95 transition">
-                Toggle Throne
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- House Motto -->
-    <section class="text-center mt-10 mb-6">
-
-        <div class="rune-line mb-5"></div>
-
-        <p class="text-sm italic text-gray-500">
-            "When you play the game of thrones, you win or you die."
-        </p>
-
-        <p class="text-xs tracking-[0.25em] uppercase text-gray-700 mt-3">
-            Winter is Coming
-        </p>
-
-    </section>
-
-</main>
-
-
-<!-- Telegram Mini Apps SDK -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-<script>
-
-    // Initialize Telegram Mini App
-    Telegram.WebApp.ready();
-
-
-    // Apply Telegram theme
-    Telegram.WebApp.onEvent('themeChanged', function () {
-        document.documentElement.className =
-            Telegram.WebApp.colorScheme;
-    });
-
-
-    // Main Telegram button
-    Telegram.WebApp.MainButton.setParams({
-        text: 'ENTER THE THRONE ROOM'
-    });
-
-    Telegram.WebApp.MainButton.onClick(function () {
-        Telegram.WebApp.showAlert(
-            'The Iron Throne acknowledges your presence.'
-        );
-    });
-
-    Telegram.WebApp.MainButton.show();
-
-
-    // Council popup
-    function showPopup() {
-
-        Telegram.WebApp.showPopup({
-            title: 'The Small Council',
-            message: 'The realm awaits your command.',
-            buttons: [
-                {
-                    id: 'dragon',
-                    type: 'default',
-                    text: 'Dracarys'
-                },
-                {
-                    type: 'cancel'
-                }
-            ]
-        }, function (btn) {
-
-            if (btn === 'dragon') {
-                Telegram.WebApp.showAlert(
-                    '🔥 DRACARYS 🔥'
+    </script>
+
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(120, 20, 20, 0.18),
+                    transparent 35%
+                ),
+                #09090b;
+            color: #e7e5e4;
+            font-family: Georgia, serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .gold-text {
+            color: #c9a227;
+        }
+
+        .panel {
+            background: rgba(17, 17, 19, 0.92);
+            border: 1px solid rgba(201, 162, 39, 0.18);
+            border-radius: 16px;
+        }
+
+        .location-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,0.035),
+                    rgba(255,255,255,0.01)
                 );
-            }
-
-        });
-
-    }
-
-
-    // Toggle Telegram Main Button
-    function toggleMainButton() {
-
-        if (Telegram.WebApp.MainButton.isVisible) {
-            Telegram.WebApp.MainButton.hide();
-        } else {
-            Telegram.WebApp.MainButton.show();
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            transition: transform .15s ease, border-color .15s ease;
         }
 
+        .location-card:active {
+            transform: scale(.97);
+            border-color: rgba(201,162,39,.5);
+        }
+
+        .bottom-nav {
+            backdrop-filter: blur(16px);
+            background: rgba(9,9,11,.92);
+            border-top: 1px solid rgba(255,255,255,.07);
+        }
+
+        .progress {
+            height: 7px;
+            border-radius: 999px;
+            background: #27272a;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                #8f1d1d,
+                #c9a227
+            );
+            transition: width .3s ease;
+        }
+
+        .modal {
+            background: rgba(0,0,0,.72);
+            backdrop-filter: blur(7px);
+        }
+
+        .hidden-screen {
+            display: none;
+        }
+
+        .location-icon {
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="app" class="max-w-xl mx-auto min-h-screen pb-24">
+
+    <!-- HEADER -->
+    <header class="px-5 pt-6 pb-4">
+
+        <div class="flex items-center justify-between">
+
+            <div>
+                <div class="text-xs uppercase tracking-[.25em] text-stone-500">
+                    Seven Realms
+                </div>
+
+                <h1 class="text-2xl font-bold gold-text">
+                    Ashenford
+                </h1>
+            </div>
+
+            <div
+                class="flex items-center gap-2 px-3 py-2 rounded-full bg-zinc-900 border border-yellow-700/20"
+            >
+                <span>🔥</span>
+                <span id="dfBalance" class="font-bold">
+                    1000
+                </span>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="px-4">
+
+        <!-- ================= CHARACTER ================= -->
+
+        <section id="screen-character">
+
+            <!-- Character -->
+            <div class="panel p-5 mb-4">
+
+                <div class="flex items-center gap-4">
+
+                    <div
+                        class="w-16 h-16 rounded-full bg-gradient-to-br from-red-900 to-black border border-yellow-700/30 flex items-center justify-center text-3xl"
+                    >
+                        ⚔️
+                    </div>
+
+                    <div class="flex-1">
+
+                        <div class="text-xs text-stone-500">
+                            Adventurer
+                        </div>
+
+                        <h2 id="playerName" class="text-xl font-bold">
+                            Wanderer
+                        </h2>
+
+                        <div class="text-sm text-stone-400">
+                            Level <span id="playerLevel">1</span>
+                        </div>
+
+                    </div>
+
+                    <div class="text-right">
+
+                        <div class="text-xs text-stone-500">
+                            XP
+                        </div>
+
+                        <div class="font-bold">
+                            <span id="xpCurrent">0</span>/<span id="xpNeeded">100</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="progress mt-4">
+                    <div
+                        id="xpBar"
+                        class="progress-fill"
+                        style="width:0%"
+                    ></div>
+                </div>
+
+            </div>
+
+
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-3 mb-4">
+
+                <div class="panel p-4 text-center">
+                    <div class="text-xl">❤️</div>
+                    <div class="text-xs text-stone-500 mt-1">
+                        Health
+                    </div>
+                    <div class="font-bold">
+                        100
+                    </div>
+                </div>
+
+                <div class="panel p-4 text-center">
+                    <div class="text-xl">⚔️</div>
+                    <div class="text-xs text-stone-500 mt-1">
+                        Power
+                    </div>
+                    <div class="font-bold">
+                        10
+                    </div>
+                </div>
+
+                <div class="panel p-4 text-center">
+                    <div class="text-xl">🛡️</div>
+                    <div class="text-xs text-stone-500 mt-1">
+                        Defense
+                    </div>
+                    <div class="font-bold">
+                        5
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- CURRENT LOCATION -->
+
+            <div class="mb-5">
+
+                <div class="flex justify-between items-center mb-3">
+
+                    <h2 class="text-lg font-bold">
+                        Your Realm
+                    </h2>
+
+                    <span class="text-xs text-stone-500">
+                        ASHENFORD
+                    </span>
+
+                </div>
+
+                <div class="panel p-5">
+
+                    <div class="flex items-start gap-4">
+
+                        <div class="text-4xl">
+                            🏘️
+                        </div>
+
+                        <div class="flex-1">
+
+                            <h3 class="font-bold text-lg">
+                                Ashenford
+                            </h3>
+
+                            <p class="text-sm text-stone-400 mt-1">
+                                A quiet frontier settlement surrounded by
+                                forests, mines and old roads.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOCATIONS -->
+
+            <div>
+
+                <div class="flex justify-between items-center mb-3">
+
+                    <h2 class="text-lg font-bold">
+                        Explore
+                    </h2>
+
+                    <span class="text-xs text-stone-500">
+                        5 LOCATIONS
+                    </span>
+
+                </div>
+
+                <div
+                    id="locations"
+                    class="grid grid-cols-2 gap-3"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= INVENTORY ================= -->
+
+        <section
+            id="screen-inventory"
+            class="hidden-screen"
+        >
+
+            <h2 class="text-2xl font-bold mb-4">
+                Inventory
+            </h2>
+
+            <div
+                id="inventory"
+                class="grid grid-cols-2 gap-3"
+            ></div>
+
+        </section>
+
+
+        <!-- ================= HOUSE ================= -->
+
+        <section
+            id="screen-house"
+            class="hidden-screen"
+        >
+
+            <h2 class="text-2xl font-bold mb-4">
+                House
+            </h2>
+
+            <div class="panel p-6 text-center">
+
+                <div class="text-5xl mb-3">
+                    🏰
+                </div>
+
+                <h3 class="text-xl font-bold">
+                    No House
+                </h3>
+
+                <p class="text-sm text-stone-400 mt-2">
+                    Join a House to build your influence across the realms.
+                </p>
+
+                <button
+                    onclick="joinHouse()"
+                    class="mt-5 w-full py-3 rounded-xl bg-red-900 border border-red-700/50 font-bold"
+                >
+                    Find a House
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RANKINGS ================= -->
+
+        <section
+            id="screen-rankings"
+            class="hidden-screen"
+        >
+
+            <h2 class="text-2xl font-bold mb-4">
+                Rankings
+            </h2>
+
+            <div class="panel overflow-hidden">
+
+                <div class="p-4 border-b border-white/5 flex justify-between">
+                    <span class="text-stone-400">
+                        Rank
+                    </span>
+
+                    <span class="text-stone-400">
+                        Adventurer
+                    </span>
+
+                    <span class="text-stone-400">
+                        Power
+                    </span>
+                </div>
+
+                <div id="leaderboard"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- BOTTOM NAV -->
+
+    <nav
+        class="bottom-nav fixed bottom-0 left-0 right-0 z-40"
+    >
+
+        <div
+            class="max-w-xl mx-auto grid grid-cols-4"
+        >
+
+            <button
+                onclick="showScreen('character')"
+                class="py-4 text-center"
+            >
+                <div>🏰</div>
+                <div class="text-[10px] mt-1">
+                    Realm
+                </div>
+            </button>
+
+            <button
+                onclick="showScreen('inventory')"
+                class="py-4 text-center"
+            >
+                <div>🎒</div>
+                <div class="text-[10px] mt-1">
+                    Inventory
+                </div>
+            </button>
+
+            <button
+                onclick="showScreen('house')"
+                class="py-4 text-center"
+            >
+                <div>👥</div>
+                <div class="text-[10px] mt-1">
+                    House
+                </div>
+            </button>
+
+            <button
+                onclick="showScreen('rankings')"
+                class="py-4 text-center"
+            >
+                <div>🏆</div>
+                <div class="text-[10px] mt-1">
+                    Rankings
+                </div>
+            </button>
+
+        </div>
+
+    </nav>
+
+</div>
+
+
+<!-- ================= MODAL ================= -->
+
+<div
+    id="modal"
+    class="modal fixed inset-0 z-50 hidden items-end justify-center"
+>
+
+    <div
+        class="w-full max-w-xl bg-zinc-950 border-t border-yellow-700/20 rounded-t-3xl p-6"
+    >
+
+        <div class="flex justify-between items-start">
+
+            <div>
+
+                <div
+                    id="modalIcon"
+                    class="text-4xl mb-2"
+                >
+                    🌲
+                </div>
+
+                <h2
+                    id="modalTitle"
+                    class="text-2xl font-bold"
+                >
+                    Location
+                </h2>
+
+            </div>
+
+            <button
+                onclick="closeModal()"
+                class="text-2xl text-stone-500"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <p
+            id="modalDescription"
+            class="text-stone-400 mt-3"
+        ></p>
+
+        <div
+            id="modalContent"
+            class="mt-5"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   TELEGRAM
+========================================================= */
+
+const tg = window.Telegram?.WebApp;
+
+if (tg) {
+
+    tg.ready();
+    tg.expand();
+
+    if (tg.setHeaderColor) {
+        tg.setHeaderColor("#09090b");
     }
 
+    if (tg.setBackgroundColor) {
+        tg.setBackgroundColor("#09090b");
+    }
 
-    // Telegram viewport
-    function setViewportData() {
+}
 
-        document.body.style.setProperty(
-            '--tg-viewport-height',
-            Telegram.WebApp.viewportStableHeight + 'px'
-        );
+
+/* =========================================================
+   GAME DATA
+========================================================= */
+
+const defaultPlayer = {
+
+    name: "Wanderer",
+
+    level: 1,
+
+    xp: 0,
+
+    dragonfire: 1000,
+
+    inventory: [],
+
+    currentLocation: "Ashenford"
+
+};
+
+
+let player =
+    JSON.parse(localStorage.getItem("sevenRealmsPlayer"))
+    || defaultPlayer;
+
+
+/* =========================================================
+   LOCATIONS
+========================================================= */
+
+const locations = [
+
+    {
+        id: "woods",
+
+        name: "Whispering Woods",
+
+        icon: "🌲",
+
+        description:
+            "An ancient forest where hunters disappear and strange tracks appear after sunset.",
+
+        action: "hunt"
+
+    },
+
+    {
+        id: "mine",
+
+        name: "Iron Mine",
+
+        icon: "⛏️",
+
+        description:
+            "A deep mine rich with iron. Workers say something lives beneath the lowest tunnel.",
+
+        action: "mine"
+
+    },
+
+    {
+        id: "market",
+
+        name: "Old Market",
+
+        icon: "🏪",
+
+        description:
+            "Merchants from distant realms gather here to trade goods and rumours.",
+
+        action: "trade"
+
+    },
+
+    {
+        id: "ruins",
+
+        name: "Forgotten Ruins",
+
+        icon: "🏚️",
+
+        description:
+            "Broken towers belonging to a forgotten kingdom. Valuable relics may still remain.",
+
+        action: "explore"
+
+    },
+
+    {
+        id: "darkmoor",
+
+        name: "Darkmoor",
+
+        icon: "🌫️",
+
+        description:
+            "A dangerous stretch of land beyond the frontier.",
+
+        action: "danger"
 
     }
 
-    Telegram.WebApp.setHeaderColor('secondary_bg_color');
+];
 
-    setViewportData();
 
-    Telegram.WebApp.onEvent(
-        'viewportChanged',
-        setViewportData
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveGame() {
+
+    localStorage.setItem(
+        "sevenRealmsPlayer",
+        JSON.stringify(player)
     );
 
-</script>
+}
 
 
-<!-- Eruda mobile console -->
-<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+/* =========================================================
+   RENDER
+========================================================= */
 
-<script>
-    eruda.init();
+function render() {
+
+    document.getElementById("dfBalance").textContent =
+        player.dragonfire.toLocaleString();
+
+    document.getElementById("playerName").textContent =
+        player.name;
+
+    document.getElementById("playerLevel").textContent =
+        player.level;
+
+    const needed = player.level * 100;
+
+    document.getElementById("xpCurrent").textContent =
+        player.xp;
+
+    document.getElementById("xpNeeded").textContent =
+        needed;
+
+    document.getElementById("xpBar").style.width =
+        Math.min((player.xp / needed) * 100, 100) + "%";
+
+
+    renderLocations();
+    renderInventory();
+    renderLeaderboard();
+
+}
+
+
+/* =========================================================
+   LOCATIONS
+========================================================= */
+
+function renderLocations() {
+
+    const container =
+        document.getElementById("locations");
+
+    container.innerHTML = "";
+
+    locations.forEach(location => {
+
+        const card =
+            document.createElement("button");
+
+        card.className =
+            "location-card p-4 text-left";
+
+        card.onclick = () =>
+            openLocation(location);
+
+        card.innerHTML = `
+
+            <div class="location-icon">
+                ${location.icon}
+            </div>
+
+            <div class="font-bold mt-2">
+                ${location.name}
+            </div>
+
+            <div class="text-xs text-stone-500 mt-1">
+                Explore
+            </div>
+
+        `;
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   LOCATION ACTIONS
+========================================================= */
+
+function openLocation(location) {
+
+    document.getElementById("modalIcon").textContent =
+        location.icon;
+
+    document.getElementById("modalTitle").textContent =
+        location.name;
+
+    document.getElementById("modalDescription").textContent =
+        location.description;
+
+
+    const content =
+        document.getElementById("modalContent");
+
+
+    let html = "";
+
+
+    if (location.action === "hunt") {
+
+        html = `
+
+            <button
+                onclick="hunt()"
+                class="w-full py-3 rounded-xl bg-red-900 font-bold"
+            >
+                Hunt in the Woods
+            </button>
+
+        `;
+
+    }
+
+
+    if (location.action === "mine") {
+
+        html = `
+
+            <button
+                onclick="mine()"
+                class="w-full py-3 rounded-xl bg-zinc-800 border border-white/10 font-bold"
+            >
+                Mine for Iron
+            </button>
+
+        `;
+
+    }
+
+
+    if (location.action === "trade") {
+
+        html = `
+
+            <button
+                onclick="market()"
+                class="w-full py-3 rounded-xl bg-yellow-700 text-black font-bold"
+            >
+                Visit Market
+            </button>
+
+        `;
+
+    }
+
+
+    if (location.action === "explore") {
+
+        html = `
+
+            <button
+                onclick="exploreRuins()"
+                class="w-full py-3 rounded-xl bg-zinc-800 border border-yellow-700/30 font-bold"
+            >
+                Explore Ruins
+            </button>
+
+        `;
+
+    }
+
+
+    if (location.action === "danger") {
+
+        html = `
+
+            <div class="p-4 rounded-xl bg-red-950/50 border border-red-900/50 mb-3">
+
+                <div class="font-bold">
+                    ⚠️ Dangerous Territory
+                </div>
+
+                <div class="text-sm text-stone-400 mt-1">
+                    You are not prepared for this region yet.
+                </div>
+
+            </div>
+
+            <button
+                onclick="attemptDarkmoor()"
+                class="w-full py-3 rounded-xl bg-red-950 border border-red-800 font-bold"
+            >
+                Enter Anyway
+            </button>
+
+        `;
+
+    }
+
+
+    content.innerHTML = html;
+
+    const modal =
+        document.getElementById("modal");
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    const modal =
+        document.getElementById("modal");
+
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+
+}
+
+
+/* =========================================================
+   REWARDS
+========================================================= */
+
+function reward(df, xp, item = null) {
+
+    player.dragonfire += df;
+
+    player.xp += xp;
+
+
+    if (item) {
+
+        player.inventory.push(item);
+
+    }
+
+
+    checkLevel();
+
+    saveGame();
+
+    render();
+
+}
+
+
+/* =========================================================
+   LEVEL
+========================================================= */
+
+function checkLevel() {
+
+    let required =
+        player.level * 100;
+
+
+    while (player.xp >= required) {
+
+        player.xp -= required;
+
+        player.level++;
+
+        required =
+            player.level * 100;
+
+        notify(
+            `You reached Level ${player.level}!`
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   HUNT
+========================================================= */
+
+function hunt() {
+
+    closeModal();
+
+    reward(
+        120,
+        30,
+        {
+            name: "Wolf Pelt",
+            icon: "🐺"
+        }
+    );
+
+    notify(
+        "You hunted successfully. +120 DF +30 XP"
+    );
+
+}
+
+
+/* =========================================================
+   MINE
+========================================================= */
+
+function mine() {
+
+    closeModal();
+
+    reward(
+        80,
+        20,
+        {
+            name: "Iron Ore",
+            icon: "⛏️"
+        }
+    );
+
+    notify(
+        "You mined some iron. +80 DF +20 XP"
+    );
+
+}
+
+
+/* =========================================================
+   MARKET
+========================================================= */
+
+function market() {
+
+    if (player.dragonfire < 100) {
+
+        notify("You need 100 DF.");
+
+        return;
+
+    }
+
+
+    player.dragonfire -= 100;
+
+
+    reward(
+        250,
+        10
+    );
+
+
+    notify(
+        "A merchant bought your goods. +150 DF profit"
+    );
+
+}
+
+
+/* =========================================================
+   RUINS
+========================================================= */
+
+function exploreRuins() {
+
+    closeModal();
+
+
+    const roll =
+        Math.random();
+
+
+    if (roll < 0.2) {
+
+        reward(
+            500,
+            100,
+            {
+                name: "Ancient Relic",
+                icon: "🏺"
+            }
+        );
+
+        notify(
+            "You discovered an Ancient Relic! +500 DF"
+        );
+
+    } else {
+
+        reward(
+            180,
+            50
+        );
+
+        notify(
+            "You searched the ruins. +180 DF +50 XP"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DARKMOOR
+========================================================= */
+
+function attemptDarkmoor() {
+
+    closeModal();
+
+
+    if (player.level < 3) {
+
+        notify(
+            "You need Level 3 to survive Darkmoor."
+        );
+
+        return;
+
+    }
+
+
+    reward(
+        1000,
+        200,
+        {
+            name: "Darkmoor Shard",
+            icon: "🔮"
+        }
+    );
+
+
+    notify(
+        "You survived Darkmoor! +1000 DF"
+    );
+
+}
+
+
+/* =========================================================
+   INVENTORY
+========================================================= */
+
+function renderInventory() {
+
+    const container =
+        document.getElementById("inventory");
+
+    container.innerHTML = "";
+
+
+    if (player.inventory.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="col-span-2 panel p-8 text-center">
+
+                <div class="text-4xl">
+                    🎒
+                </div>
+
+                <div class="mt-3 text-stone-400">
+                    Your inventory is empty.
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    player.inventory.forEach(item => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "panel p-5 text-center";
+
+        card.innerHTML = `
+
+            <div class="text-4xl">
+                ${item.icon}
+            </div>
+
+            <div class="font-bold mt-2">
+                ${item.name}
+            </div>
+
+        `;
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   LEADERBOARD
+========================================================= */
+
+function renderLeaderboard() {
+
+    const container =
+        document.getElementById("leaderboard");
+
+    const players = [
+
+        {
+            rank: 1,
+            name: "The Black Stag",
+            power: 8420
+        },
+
+        {
+            rank: 2,
+            name: "Dragonborn",
+            power: 7910
+        },
+
+        {
+            rank: 3,
+            name: "Lord Ash",
+            power: 7250
+        },
+
+        {
+            rank: 4,
+            name: player.name,
+            power: player.level * 500
+        }
+
+    ];
+
+
+    container.innerHTML = "";
+
+
+    players.forEach(p => {
+
+        container.innerHTML += `
+
+            <div class="p-4 flex justify-between border-b border-white/5">
+
+                <span class="text-stone-500">
+                    #${p.rank}
+                </span>
+
+                <span>
+                    ${p.name}
+                </span>
+
+                <span class="gold-text font-bold">
+                    ${p.power}
+                </span>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   HOUSE
+========================================================= */
+
+function joinHouse() {
+
+    notify(
+        "House system coming soon."
+    );
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showScreen(screen) {
+
+    const screens = [
+
+        "character",
+        "inventory",
+        "house",
+        "rankings"
+
+    ];
+
+
+    screens.forEach(name => {
+
+        const element =
+            document.getElementById(
+                "screen-" + name
+            );
+
+        if (name === screen) {
+
+            element.classList.remove(
+                "hidden-screen"
+            );
+
+        } else {
+
+            element.classList.add(
+                "hidden-screen"
+            );
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+function notify(message) {
+
+    if (tg?.showAlert) {
+
+        tg.showAlert(message);
+
+    } else {
+
+        alert(message);
+
+    }
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+render();
+
 </script>
 
 </body>
